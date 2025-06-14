@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Image brightness checker</title>
     <meta name="viewport" content="width=device-width">
-    <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 32 32'><path fill='%2359f' d='M8 3s-4 1-5 5q-1 8 0 16s1 4 5 5q 8 1 16 0s 4-1 5-5q1-8 0-16s-1-4-5-5q-8-1-16 0z'/><path fill='%23f66' d='M19 12a6 6 0 1 0 0 5'/><path fill='none' stroke='%230f6' stroke-width='2.5' stroke-linecap='round' d='M23 24l-4-12a6 6 0 1 0 0 5l2-6q0.5-1 2-1'/></svg>">
+    <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 32 32'><path fill='%2359f' d='M8 3s-4 1-5 5q-1 8 0 16s1 4 5 5q 8 1 16 0s 4-1 5-5q1-8 0-16s-1-4-5-5q-8-1-16 0z'/><g stroke='%230f6' stroke-width='2.5' stroke-linecap='round'><path fill='%23f66' d='M10.5 23.5q1-14 5-15 4-1 5 3 0 3-3 3m 0 0q4 1 4 4 0 4-4 4-3.5 0-8.5-2.5'/></g><xpath fill='none' d='M23 24l4-12a6 6 0 1 0 0 5l2-6q0.5-1 2-1'/></svg>">
     <style>
 * {
   --fg: #333;
@@ -73,9 +73,10 @@ h1 {
         Drop an image here to check its alpha channel.
       </h1>
       <article class="en">
-        Blue: Brightness = 2550<br>
+        Blue: Brightness = 255<br>
         Green: 1 &lt;= Brightness &lt;= 254<br>
-        Red: Brightness = 0
+        Red: Brightness = 0<br>
+        Transparent: Alpha = 0
       </article>
       <article class="en small">
         This does not support CMYK.<br>
@@ -89,7 +90,8 @@ h1 {
       <article class="ja">
         青 … 輝度 = 255<br>
         緑 … 1 &lt;= 輝度 &lt;= 254<br>
-        赤 … 輝度 = 0
+        赤 … 輝度 = 0<br>
+        透明 … 不透明度 = 0
       </article>
       <article class="ja small">
         ※CMYK画像は未対応です<br>
@@ -170,12 +172,12 @@ h1 {
                 data[i + 0] = 255;
                 data[i + 1] = 0;
                 data[i + 2] = 0;
-                data[i + 3] = 255;
+                data[i + 3] = data[i + 3] === 255 ? 255 : 128;
               } else if (rgb === 255 * 3) {
                 data[i + 0] = 0;
                 data[i + 1] = 128;
                 data[i + 2] = 255;
-                data[i + 3] = 255;
+                data[i + 3] = data[i + 3] === 255 ? 255 : 128;
               } else {
                 data[i + 0] = 0;
                 data[i + 1] = 255;
